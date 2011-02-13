@@ -1,4 +1,10 @@
 #!/usr/bin/env php
 <?php
 //echo urldecode("http://ja.wikipedia.org/wiki/%E6%9E%97%E6%AA%8E");
+
+if ($argc !== 2) {
+  echo "デコードしたい文字列を引数に一つ入力してください";
+  exit;
+}
+
 echo urldecode($argv[1]);
