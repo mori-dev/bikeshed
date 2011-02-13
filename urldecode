@@ -1,9 +1,11 @@
 #!/usr/bin/env php
 <?php
-//echo urldecode("http://ja.wikipedia.org/wiki/%E6%9E%97%E6%AA%8E");
+//useage
+//$ urldecode http://ja.wikipedia.org/wiki/%E6%9E%97%E6%AA%8E
+//http://ja.wikipedia.org/wiki/林檎
 
 if ($argc !== 2) {
-  echo "デコードしたい文字列を引数に一つ入力してください";
+  echo "デコードしたい文字列を引数に一つ指定して下さい";
   exit;
 }
 
