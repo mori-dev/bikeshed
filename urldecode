@@ -1,0 +1,4 @@
+#!/usr/bin/env php
+<?php
+//echo urldecode("http://ja.wikipedia.org/wiki/%E6%9E%97%E6%AA%8E");
+echo urldecode($argv[1]);
