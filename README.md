@@ -3,7 +3,12 @@ bikeshed とは
 雑多なツールたち
 
 
-today.php
+today
 -------
 
 今日の日付を返す。
+
+urldecode
+-------
+
+引数の文字列を URLデコードして返す。
