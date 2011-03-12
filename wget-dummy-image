@@ -107,7 +107,7 @@ class WgetDummyImage
     end
       
     puts 'success'
-    exit 1
+    exit 0
     
   end
 
@@ -116,13 +116,13 @@ class WgetDummyImage
     puts(msg) if msg
     puts "Incorrect usage of #{@program_name}."    
     puts "Check out --help for options"
-    exit 1
+    exit 0
   end
 
   def error(msg)
     puts "#{@program_name} cause error"
     puts(msg)
-    exit 0
+    exit 1
   end
   
 end
