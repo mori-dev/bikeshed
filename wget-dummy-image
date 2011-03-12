@@ -34,8 +34,8 @@ class WgetDummyImage
   end
 
   def initialize
-    usage if ARGV.length == 0
     @program_name = File.basename($0)
+    usage if ARGV.length == 0    
     @outfile = nil
     @height  = nil
     @width   = nil
