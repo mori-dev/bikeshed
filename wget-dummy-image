@@ -29,16 +29,16 @@ require 'optparse'
 
 class WgetDummyImage
 
-  def self.run(argv)
-    self.new.option(argv).run
-  end
-
   def initialize
     @program_name = File.basename($0)
     usage if ARGV.length == 0    
     @outfile = nil
     @height  = nil
     @width   = nil
+  end
+
+  def self.run(argv)
+    self.new.option(argv).run
   end
   
   def option(argv)
