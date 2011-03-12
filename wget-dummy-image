@@ -119,9 +119,9 @@ class WgetDummyImage
     exit 1
   end
 
-  def error(msg)
+  def error(msg=nil)
     puts "#{@program_name} cause error"
-    puts(msg)
+    puts(msg) if msg
     exit 1
   end
   
