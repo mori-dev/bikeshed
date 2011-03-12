@@ -1,0 +1,66 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+def main
+
+  outfile = nil
+  height = nil
+  width = nil
+  tmp_file = rand(36 ** 9).to_s(36)[1, 8] + '.jpeg';
+  
+  parser = OptionParser.new
+  parser.banner = "Usage: #{$0} -o PATH -h HEIGHT -w WIDTH"
+  
+  parser.on('--help', 'Prints this message and quit.') {
+    puts parser.help
+    exit 0
+  }
+  parser.on('-o', '--output=PATH', 'Name of output file.') {|path|
+    outfile = path
+  }
+  parser.on('-h', '--height=HEIGHT', 'Height of image file.') {|h|
+    height = h
+  }
+  parser.on('-w', '--width=WIDTH', 'Width of image file.') {|w|
+    width = w
+  }
+  
+  begin
+    parser.parse!
+  rescue OptionParser::ParseError => err
+    parser.error err.message
+  end
+  parser.error 'no output file' unless outfile
+  parser.error 'no height' unless height
+  parser.error 'no width' unless width
+  
+  command_wget = sprintf('wget -O %s http://placekitten.com/%s/%s >/dev/null 2>&1',
+    tmp_file,
+    width,
+    height)
+  
+  result = system(command_wget)
+  
+  if result == true
+    command_convert = sprintf('convert %s %s',
+      tmp_file,
+      outfile)
+    result = system(command_convert)
+    
+    if result == true    
+      puts 'success'
+      exit 1
+    else
+      puts 'fail'
+      exit 0
+    end
+    
+  else
+    puts 'fail'
+    exit 0
+  end
+  
+end
+
+main
