@@ -7,7 +7,7 @@ def main
   outfile = nil
   height = nil
   width = nil
-  tmp_file = rand(36 ** 9).to_s(36)[1, 8] + '.jpeg';
+  tmp_file = '/tmp/' + rand(36 ** 9).to_s(36)[1, 8] + '.jpeg';
   
   parser = OptionParser.new
   parser.banner = "Usage: #{$0} -o PATH -h HEIGHT -w WIDTH"
