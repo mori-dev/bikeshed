@@ -1,66 +1,130 @@
 #!/usr/bin/env ruby
+=begin
+wget-dummy-image ( https://github.com/wakaran/bikeshed/raw/master/wget-dummy-image )
+
+The MIT License
+
+Copyright (c) 2010 kmori ( mori.dev.asdf@gmail.com )
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+=end
 
 require 'optparse'
 
-def main
+class WgetDummyImage
 
-  outfile = nil
-  height = nil
-  width = nil
-  tmp_file = '/tmp/' + rand(36 ** 9).to_s(36)[1, 8] + '.jpeg';
-  
-  parser = OptionParser.new
-  parser.banner = "Usage: #{$0} -o PATH -h HEIGHT -w WIDTH"
-  
-  parser.on('--help', 'Prints this message and quit.') {
-    puts parser.help
-    exit 0
-  }
-  parser.on('-o', '--output=PATH', 'Name of output file.') {|path|
-    outfile = path
-  }
-  parser.on('-h', '--height=HEIGHT', 'Height of image file.') {|h|
-    height = h
-  }
-  parser.on('-w', '--width=WIDTH', 'Width of image file.') {|w|
-    width = w
-  }
-  
-  begin
-    parser.parse!
-  rescue OptionParser::ParseError => err
-    parser.error err.message
+  def self.run(argv)
+    self.new.option(argv).run
   end
-  parser.error 'no output file' unless outfile
-  parser.error 'no height' unless height
-  parser.error 'no width' unless width
+
+  def initialize
+    usage if ARGV.length == 0
+    @program_name = File.basename($0)
+    @outfile = nil
+    @height  = nil
+    @width   = nil
+  end
   
-  command_wget = sprintf('wget -O %s http://placekitten.com/%s/%s >/dev/null 2>&1',
-    tmp_file,
-    width,
-    height)
-  
-  result = system(command_wget)
-  
-  if result == true
-    command_convert = sprintf('convert %s %s',
-      tmp_file,
-      outfile)
-    result = system(command_convert)
-    
-    if result == true    
-      puts 'success'
-      exit 1
-    else
-      puts 'fail'
-      exit 0
+  def option(argv)
+    argv = argv.dup
+    OptionParser.new do |parser|
+      
+      parser.banner =  "Usage: #{$0} -o PATH -h HEIGHT -w WIDTH"
+      parser.separator ""
+      parser.separator "OPTIONS:"
+       
+      parser.on('--help', 'Prints this message and quit.') do
+        puts parser.help
+        exit 0
+      end 
+       
+      parser.on('-o', '--output=PATH', 'Name of output file.') do |o|
+        @outfile = o
+      end
+       
+      parser.on('-h', '--height=HEIGHT', 'Height of image file.') do |h|
+        @height = h
+       
+      end
+       
+      parser.on('-w', '--width=WIDTH', 'Width of image file.') do |w|
+        @width = w
+      end
+       
+      begin
+        parser.parse!(argv)
+      rescue OptionParser::ParseError => err
+        puts err.message
+      end
+       
+      usage 'no output file' unless @outfile
+      usage 'no height'      unless @height
+      usage 'no width'       unless @width
+         
     end
+
+    self
     
-  else
-    puts 'fail'
+  end
+
+
+  def run
+   
+    tmp_file = '/tmp/' + rand(36 ** 9).to_s(36)[1, 8] + '.jpeg';
+
+    command_wget = sprintf(
+      'wget -O %s http://placekitten.com/%s/%s >/dev/null 2>&1',
+      tmp_file,
+      @width,
+      @height)
+
+    command_convert = sprintf(
+      'convert %s %s >/dev/null 2>&1',
+      tmp_file,
+      @outfile)
+    
+    result = system(command_wget)
+    result = system(command_convert) if result
+    
+    if result == false
+      error 'fail'
+    end
+      
+    puts 'success'
+    exit 1
+    
+  end
+
+  def usage(msg=nil)
+
+    puts(msg) if msg
+    puts "Incorrect usage of #{@program_name}."    
+    puts "Check out --help for options"
+    exit 1
+  end
+
+  def error(msg)
+    puts "#{@program_name} cause error"
+    puts(msg)
     exit 0
   end
   
 end
 
-main
+WgetDummyImage.run(ARGV)
