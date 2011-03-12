@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require 'tempfile'
+
+dir = ARGV.shift
+before_word = /\t/
+after_word = '        '
+
+if dir == '/' or dir == nil
+  puts 'argument error'
+  exit 0
+end
+
+Dir.glob("#{dir}/**/*") do |file|
+  unless File::directory?(file)
+     
+    temp = Tempfile::new('tmp', '/tmp')
+     
+    open(file, 'r') do |f|
+      f.read.each do |line|
+        line.gsub!(before_word, after_word)
+        temp.puts line
+      end
+    end
+
+    temp.close
+
+    temp.open
+
+    open(file, 'w') do |f|
+      temp.each do |line|
+        f.puts line
+      end
+    end
+
+    temp.close(true)
+
+  end
+
+end
