@@ -42,7 +42,7 @@ class WgetDummyImage
   end
   
   def option(argv)
-    argv = argv.dup
+
     OptionParser.new do |parser|
       
       parser.banner =  "Usage: #{$0} -o PATH -h HEIGHT -w WIDTH"
