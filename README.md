@@ -8,6 +8,13 @@ untabify-dir2
 * 指定したディレクトリ以下のファイルのタブを2スペースに置換するコマンド
 * wget-dummy-image /home/me/tmp といったふうに利用する
 
+untabify-dir4
+-------
+
+* 指定したディレクトリ以下のファイルのタブを4スペースに置換するコマンド
+* wget-dummy-image /home/me/tmp といったふうに利用する
+* 引数指定が面倒なので untabify-dir2 と別にしている
+
 wget-dummy-image
 -------
 
