@@ -2,6 +2,12 @@ bikeshed とは
 =============
 雑多なツールたち
 
+untabify-dir2
+-------
+
+* 指定したディレクトリ以下のファイルのタブを2スペースに置換するコマンド
+* wget-dummy-image /home/me/tmp といったふうに利用する
+
 wget-dummy-image
 -------
 
