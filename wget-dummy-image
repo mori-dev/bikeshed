@@ -77,7 +77,7 @@ class WgetDummyImage
     result = system(command_wget)
     result = system(command_convert) if result
     
-    if result == false
+    unless result
       error 'fail'
     end
       
@@ -86,6 +86,8 @@ class WgetDummyImage
     
   end
 
+  private
+  
   def usage(msg=nil)
     puts(msg) if msg
     puts "Incorrect usage of #{@program_name}."    
