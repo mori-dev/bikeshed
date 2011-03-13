@@ -12,10 +12,6 @@ class WgetDummyImage
     @width   = nil
   end
 
-  def self.run(argv)
-    self.new.option(argv).run
-  end
-  
   def option(argv)
 
     OptionParser.new do |parser|
@@ -58,7 +54,10 @@ class WgetDummyImage
     
   end
 
-
+  def self.run(argv)
+    self.new.option(argv).run
+  end
+  
   def run
    
     tmp_file = '/tmp/' + rand(36 ** 9).to_s(36)[1, 8] + '.jpeg';
