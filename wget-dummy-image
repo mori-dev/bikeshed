@@ -87,7 +87,6 @@ class WgetDummyImage
   end
 
   def usage(msg=nil)
-
     puts(msg) if msg
     puts "Incorrect usage of #{@program_name}."    
     puts "Check out --help for options"
