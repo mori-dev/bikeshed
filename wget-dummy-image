@@ -31,7 +31,6 @@ class WgetDummyImage
        
       parser.on('-h', '--height=HEIGHT', 'Height of image file.') do |h|
         @height = h
-       
       end
        
       parser.on('-w', '--width=WIDTH', 'Width of image file.') do |w|
