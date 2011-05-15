@@ -40,7 +40,7 @@ class WgetDummyImage
       begin
         parser.parse!(argv)
       rescue OptionParser::ParseError => err
-        puts err.message
+        $stderr.puts err.message
       end
 
       usage 'no output file' unless @outfile
