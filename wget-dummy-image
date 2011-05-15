@@ -6,7 +6,7 @@ class WgetDummyImage
 
   def initialize
     @program_name = File.basename($0)
-    usage if ARGV.length == 0    
+    usage if ARGV.length == 0
     @outfile = nil
     @height  = nil
     @width   = nil
@@ -15,50 +15,50 @@ class WgetDummyImage
   def option(argv)
 
     OptionParser.new do |parser|
-      
+
       parser.banner =  "Usage: #{$0} -o PATH -h HEIGHT -w WIDTH"
       parser.separator ""
       parser.separator "OPTIONS:"
-       
+
       parser.on('--help', 'Prints this message and quit.') do
         puts parser.help
         exit 0
-      end 
-       
+      end
+
       parser.on('-o', '--output=PATH', 'Name of output file.') do |o|
         @outfile = o
       end
-       
+
       parser.on('-h', '--height=HEIGHT', 'Height of image file.') do |h|
         @height = h
       end
-       
+
       parser.on('-w', '--width=WIDTH', 'Width of image file.') do |w|
         @width = w
       end
-       
+
       begin
         parser.parse!(argv)
       rescue OptionParser::ParseError => err
         puts err.message
       end
-       
+
       usage 'no output file' unless @outfile
       usage 'no height'      unless @height
       usage 'no width'       unless @width
-         
+
     end
 
     self
-    
+
   end
 
   def self.run(argv)
     self.new.option(argv).run
   end
-  
+
   def run
-   
+
     tmp_file = '/tmp/' + rand(36 ** 9).to_s(36)[1, 8] + '.jpeg';
 
     command_wget = sprintf(
@@ -71,24 +71,24 @@ class WgetDummyImage
       'convert %s %s >/dev/null 2>&1',
       tmp_file,
       @outfile)
-    
+
     result = system(command_wget)
     result = system(command_convert) if result
-    
+
     unless result
       error 'fail'
     end
-      
+
     puts 'success'
     exit 0
-    
+
   end
 
   private
-  
+
   def usage(msg=nil)
     puts(msg) if msg
-    puts "Incorrect usage of #{@program_name}."    
+    puts "Incorrect usage of #{@program_name}."
     puts "Check out --help for options"
     exit 1
   end
@@ -98,7 +98,7 @@ class WgetDummyImage
     puts(msg) if msg
     exit 1
   end
-  
+
 end
 
 WgetDummyImage.run(ARGV)
