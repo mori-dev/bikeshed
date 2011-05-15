@@ -5,11 +5,13 @@ require 'optparse'
 class WgetDummyImage
 
   def initialize
+
     @program_name = File.basename($0)
     usage if ARGV.length == 0
     @outfile = nil
     @height  = nil
     @width   = nil
+
   end
 
   def option(argv)
@@ -53,9 +55,11 @@ class WgetDummyImage
 
   end
 
+
   def self.run(argv)
     self.new.option(argv).run
   end
+
 
   def run
 
@@ -84,6 +88,7 @@ class WgetDummyImage
 
   end
 
+
   private
 
   def usage(msg=nil)
@@ -93,6 +98,7 @@ class WgetDummyImage
     exit 1
   end
 
+
   def error(msg=nil)
     puts "#{@program_name} cause error"
     puts(msg) if msg
@@ -100,5 +106,6 @@ class WgetDummyImage
   end
 
 end
+
 
 WgetDummyImage.run(ARGV)
