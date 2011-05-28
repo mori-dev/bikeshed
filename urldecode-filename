@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+
+# 引数で指定したディレクトリ直下のファイル名を URLデコードします
+# 使用例
+#   $ urldecode-filename /tmp/tmp
+
+<?php
+
+class Core
+{
+  public static function run($argc, $argv)
+  {
+    if ($argc < 2) {
+      throw new Core_Exception("引数がおかしい");
+    }
+
+    $program = array_shift($argv);
+    $dir = array_shift($argv);
+
+    $files = glob($dir . '/*', GLOB_NOSORT);
+
+    chdir($dir);
+
+    foreach($files as $file) {
+      $decode_file = urldecode(basename($file));
+      rename($file, $decode_file);
+    }
+
+  }
+}
+
+class Core_Exception extends Exception {}
+
+Core::run($argc, $argv);
