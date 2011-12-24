@@ -1,0 +1,10 @@
+#!/bin/bash
+
+target_dir=${1%.*}
+
+if unzip -l $1 | grep -q ${target_dir}/ ; then
+   unzip $1
+else
+   mkdir $PWD/$target_dir
+   unzip $1 -d $PWD/$target_dir
+fi
