@@ -6,7 +6,7 @@
 # $ em a.txt
 
 emacsclient=`which emacsclient 2>&1`
-if [ ! $? -eq 0 ] && [ ! -x $emacsclient ]; then
+if [ ! $? -eq 0 ] || [ ! -x $emacsclient ]; then
   echo 'emacsclient が利用できません'
   exit 1
 fi
