@@ -1,15 +1,10 @@
 #!/usr/bin/env ruby
 # -*- encoding: utf-8 -*-
-
 require 'nkf'
 
 def main
 
-  if $stdin.tty?
-    str = ARGV.shift
-  else
-    str = $stdin.read
-  end
+  str = $stdin.tty? ? str = ARGV.shift : $stdin.read
 
   # str = NKF.nkf("-Zw", "aＡあ0０ffい う　えお１（、）a")
   str = NKF.nkf("-Zw", str)
