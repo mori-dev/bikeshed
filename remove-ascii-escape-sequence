@@ -1,0 +1,6 @@
+#!/bin/bash
+
+TMP_FILE=`mktemp /tmp/res.XXXXXX`
+cat "$@" > $TMP_FILE
+sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" $TMP_FILE
+[ -f "$TMP_FILE" ] && rm -f $TMP_FILE
