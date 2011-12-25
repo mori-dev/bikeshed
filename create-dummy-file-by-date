@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FROM=20111222
+TO=$(date +%Y%m%d) #今日
+d=$FROM
+
+while [ $d -lt $TO ] ; do
+    touch /tmp/dummy.$d.tar.gz
+    d=$(date -d "${d} 1 day" +%Y%m%d)
+done
