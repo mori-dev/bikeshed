@@ -1,0 +1,9 @@
+#!/bin/bash
+
+dest=$HOME/Dropbox/bk
+tmp=/tmp/$$
+today=$(date +%Y%m%d)
+
+tar zcvf $tmp.tar.gz $HOME/Dropbox/howm
+
+mv $tmp.tar.gz ${dest}/howm.${today}.tar.gz

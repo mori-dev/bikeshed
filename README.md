@@ -48,3 +48,8 @@ yesNo.rb
 -------
 
 危険なコマンドの枕にする。
+
+backup-howm
+-------
+
+~/Dropbox/howm のバックアップスクリプト。
