@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+# -*- encoding: utf-8 -*-
+
+# useage
+# how-many-days 20120101
+
+require 'date'
+
+puts (Date.parse(ARGV[0]) - Date.today).to_i
