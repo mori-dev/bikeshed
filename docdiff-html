@@ -1,0 +1,8 @@
+#!/bin/bash
+
+(($#<2)) && { echo 'usage: docdiff-html file1 file2' >&2; exit 1; }
+[ -z `which docdiff 2>&1` ] && { echo "gem install docdiff" >&2; exit 1; }
+
+tmp=/tmp/$$.html
+docdiff $1 $2 --html > $tmp
+gnome-open $tmp || open $tmp || { echo "error" >&2; exit 1; }

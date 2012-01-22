@@ -17,6 +17,16 @@ how-many-days
 
 * あと何日か、計算する。
 
+rails-project-gem-grep-r
+--------------------------
+
+* Rails プロジェクトで使用している gem を対象に grep -r する
+
+docdiff-html
+--------------------------
+
+* docdiff の結果をブラウザに表示する
+
 untabify-dir2
 ----------------
 
