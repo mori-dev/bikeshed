@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ $# -eq 1 ] || { echo 'usage: man2text command'; exit 1; }
+
+man $1 | col -b

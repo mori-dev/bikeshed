@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# ランレベル 3 で off にすべきデーモン一覧を返す。
+
+tmp_file=/tmp/$$
+
+# 例外リストの元ネタ
+# http://tanaka.sakura.ad.jp/archives/001065.html
+
+# lvm2-monitor は lvm2 パッケージが提供していて、それを mkinitrd が要求するので削除できない。
+# LVM は使ってないので止めておいても問題ないが、使っていなければ特に何か常駐するわけでもなさそうなので、そのままでもよい。
+# netfs と rawdevices は initscripts パッケージが提供しているので、これも削除できない。これらも特に常駐するわけではないので、そのままでよい。
+# netfs は有効にしておいた方が、後々 NFS を使うことになった時にビックリしなくていいと思います。
+
+# lvm2-monitor
+# netfs
+# rawdevices
+# netfs
+cat <<EOF >$tmp_file
+auditd
+autofs
+avahi-daemon
+bluetooth
+cups
+firstboot
+gpm
+haldaemon
+hidd
+isdn
+kudzu
+mcstrans
+mdmonitor
+messagebus
+nfslock
+pcscd
+portmap
+restorecond
+rpcgssd
+rpcidmapd
+smartd
+xfs
+yum-updatesd
+EOF
+
+/sbin/chkconfig --list | grep --color 3:on |awk '{print $1}' |sort |comm -12 - $tmp_file
+
+[ -f "$tmp_file" ] && rm -f $tmp_file
+
+# 結果を確認し、以下のように無効にしてゆく。
+# /sbin/chkconfig --level=3 auditd off
