@@ -1,0 +1,8 @@
+#!/bin/sh
+
+[ $# -eq 1 ] || { echo 'usage: closest filename'; exit 1; }
+
+until [ $PWD = "/" ]; do
+    test -f $PWD/$1 && echo $PWD/$1 && exit
+    cd ..
+done
