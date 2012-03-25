@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+# USEAGE
+# host2ip google.com
+#=> 74.125.235.110
+
+require "socket"
+
+unless ARGV.size == 1
+  warn "Usage: #{File.basename($0)} hostname"
+end
+
+begin
+  puts TCPSocket.gethostbyname(ARGV[0])[3]
+rescue
+  warn "unkown"
+end
