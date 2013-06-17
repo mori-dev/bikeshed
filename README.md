@@ -109,3 +109,10 @@ create-dummy-file-by-date
 ----------------------------
 
 /tmp/dummy.20111223.tar.gz といった、日付を含むダミーデータの作成。From と To を指定して使う。
+
+
+
+simple-http-server
+---------------------------
+
+python -m SimpleHTTPServer 8080 をいつも忘れるので。
